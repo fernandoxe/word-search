@@ -3,13 +3,20 @@ import data from '../../data';
 const SearchData = {
   getAllArtists: () => data.map(artist => artist.artist),
   getAllSongs: () => data.map(artist => artist.songs).flat(),
-  getSongs(text) {
+  includesText: (text, subtext, ignoreCase = true) => {
+    if(ignoreCase) {
+      return text.toLowerCase().indexOf(subtext.toLowerCase()) > -1;
+    } else {
+      return text.indexOf(subtext) > -1;
+    }
+  },
+  getSongs(text, ignoreCase) {
     const allSongs = this.getAllSongs();
-    return allSongs.filter(song => song.lyrics.includes(text));
+    return allSongs.filter(song => this.includesText(song.lyrics, text, ignoreCase));
   },
   songToArrayOfLyrics: (song) => song.lyrics.split('\n'),
-  getLyrics(text) {
-    const songs = this.getSongs(text);
+  getLyrics(text, ignoreCase) {
+    const songs = this.getSongs(text, ignoreCase);
     const allLyrics = [];
     for (let i = 0; i < songs.length; i++) {
       const song = songs[i];
@@ -17,7 +24,7 @@ const SearchData = {
       const lyrics = [];
       for (let j = 0; j < splittedSong.length; j++) {
         const line = splittedSong[j];
-        if(line.includes(text)) {
+        if(this.includesText(line, text, ignoreCase)) {
           lyrics.push([
             splittedSong[j - 1],
             splittedSong[j],
