@@ -1,28 +1,36 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import SearchData from '../../services/searchdata';
+import Song from '../Song';
 
 const Container = styled.div`
-  .card {
-    border-radius: 8px;
+  .form {
     display: flex;
-    flex-direction: column;
-    padding: 8px;
-    margin-bottom: 8px;
-    box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 20%);
-  }
+    padding: 1rem;
 
-  .song {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-bottom: 16px;
+    .input {
+      font-family: inherit;
+      font-size: 1rem;
+      flex-grow: 1;
+      height: 2rem;
     }
+    .button {
+      display: flex;
+      padding: 0;
+      margin-left: 0.5rem;
+      border: none;
+      background-color: transparent;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      cursor: pointer;
+      :enabled:active {
+        color: red;
+      }
 
-    &__title {
-      margin-bottom: 8px;
+      i {
+        font-size: 2rem;
+        font-weight: bold;
+      }
     }
   }
 `;
@@ -38,32 +46,29 @@ const Search = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const songs = SearchData.getLyrics(inputValue);
+    const songs = SearchData.getLyrics(inputValue.trim());
     console.log(songs);
     setResult(songs);
   };
 
   const parseSongs = (songs) => {
-    return songs.map((song, i) => (
-        <div key={i} className="song">
-          <div className="song__title">{song.title}</div>
-          {song.lyrics.map((lyric, j) => (
-            <div key={j} className="card">
-              {lyric.map((line, k) => line ? <div key={k}>{line}</div> : null)}
-            </div>
-          ))}
-        </div>
-      )
-    );
+    return songs.map((song, i) => <Song key={i} song={song} /> );
   };
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleInputChange} />
-        <button>Search</button>
-        {parseSongs(result)}
+      <form className="form" onSubmit={handleSubmit}>
+        <input
+          className="input"
+          type="search"
+          placeholder="Type a word"
+          onChange={handleInputChange}
+        />
+        <button className="button" disabled={inputValue.trim().length < 2}>
+          <i className="material-icons">search</i>
+        </button>
       </form>
+      {parseSongs(result)}
     </Container>
   );
 };
