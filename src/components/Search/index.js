@@ -4,9 +4,17 @@ import SearchData from '../../services/searchdata';
 import Song from '../Song';
 
 const Container = styled.div`
+  padding: 1rem;
   .form {
     display: flex;
-    padding: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    
+    &__content {
+      width: 100%;
+      display: flex;
+      max-width: 30rem;
+    }
 
     .input {
       font-family: inherit;
@@ -58,15 +66,17 @@ const Search = (props) => {
   return (
     <Container>
       <form className="form" onSubmit={handleSubmit}>
-        <input
-          className="input"
-          type="search"
-          placeholder="Type a word"
-          onChange={handleInputChange}
-        />
-        <button className="button" disabled={inputValue.trim().length < 2}>
-          <i className="material-icons">search</i>
-        </button>
+        <div className="form__content">
+          <input
+            className="input"
+            type="search"
+            placeholder="Type a word"
+            onChange={handleInputChange}
+          />
+          <button className="button" disabled={inputValue.trim().length < 2}>
+            <i className="material-icons">search</i>
+          </button>
+        </div>
       </form>
       {parseSongs(result)}
     </Container>

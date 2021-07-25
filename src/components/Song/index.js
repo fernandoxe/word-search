@@ -5,9 +5,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  :not(:last-child) {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+  :last-child {
+    margin-bottom: 1rem;
   }
 
   .title {
