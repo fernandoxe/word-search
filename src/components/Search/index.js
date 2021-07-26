@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SearchData from '../../services/searchdata';
 import Song from '../Song';
@@ -7,13 +7,29 @@ const Container = styled.div`
   padding: 1rem;
   .form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 2rem;
-    
-    &__content {
+
+    &__artists {
       width: 100%;
-      display: flex;
       max-width: 30rem;
+      margin-bottom: 0.5rem;
+      select {
+        width: 100%;
+        font-size: 1rem;
+        height: 2rem;
+        border: 1px solid #000;
+        border-radius: 0.5rem;
+        padding: 0.125rem 0.5rem;
+        outline: none;
+      }
+    }
+    
+    &__search {
+      width: 100%;
+      max-width: 30rem;
+      display: flex;
       border: 1px solid #000;
       border-radius: 0.5rem;
       overflow: hidden;
@@ -52,6 +68,12 @@ const Container = styled.div`
 const Search = (props) => {
   const [inputValue, setInputValue] = useState('');
   const [result, setResult] = useState([]);
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    const allArtists = SearchData.getAllArtists();
+    setArtists(allArtists);
+  }, []);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -71,17 +93,27 @@ const Search = (props) => {
 
   return (
     <Container>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="form__content">
-          <input
-            className="input"
-            type="search"
-            placeholder="Type a word"
-            onChange={handleInputChange}
-          />
-          <button className="button" disabled={inputValue.trim().length < 2}>
-            <i className="material-icons">search</i>
-          </button>
+      <form onSubmit={handleSubmit}>
+        <div className="form">
+          <div className="form__artists">
+            <select name="select">
+              <option value="All" selected>All</option>
+              {artists.map((artist, i) =>
+                <option key={i} value={artist}>{artist}</option>
+              )}
+            </select>
+          </div>
+          <div className="form__search">
+            <input
+              className="input"
+              type="search"
+              placeholder="Type a word"
+              onChange={handleInputChange}
+            />
+            <button className="button" disabled={inputValue.trim().length < 2}>
+              <i className="material-icons">search</i>
+            </button>
+          </div>
         </div>
       </form>
       {parseSongs(result)}
