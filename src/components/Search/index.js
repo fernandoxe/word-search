@@ -14,6 +14,9 @@ const Container = styled.div`
       width: 100%;
       display: flex;
       max-width: 30rem;
+      border: 1px solid #000;
+      border-radius: 0.5rem;
+      overflow: hidden;
     }
 
     .input {
@@ -21,6 +24,9 @@ const Container = styled.div`
       font-size: 1rem;
       flex-grow: 1;
       height: 2rem;
+      padding: 0.125rem 0.5rem;
+      border: none;
+      outline: none;
     }
     .button {
       display: flex;
@@ -32,7 +38,7 @@ const Container = styled.div`
       user-select: none;
       cursor: pointer;
       :enabled:active {
-        color: red;
+        color: #64b5f6;
       }
 
       i {
