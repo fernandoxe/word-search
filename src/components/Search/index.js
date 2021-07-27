@@ -15,14 +15,23 @@ const Container = styled.div`
       width: 100%;
       max-width: 30rem;
       margin-bottom: 0.5rem;
+      border: 1px solid #000;
+      border-radius: 0.5rem;
+      overflow: hidden;
       select {
         width: 100%;
+        border: none;
         font-size: 1rem;
         height: 2rem;
-        border: 1px solid #000;
-        border-radius: 0.5rem;
         padding: 0.125rem 0.5rem;
         outline: none;
+        @media (prefers-color-scheme: dark) {
+          background-color: #000;
+          color: inherit;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        border: 1px solid #fff;
       }
     }
     
@@ -31,6 +40,9 @@ const Container = styled.div`
       max-width: 30rem;
       display: flex;
       border: 1px solid #000;
+      @media (prefers-color-scheme: dark) {
+        border: 1px solid #fff;
+      }
       border-radius: 0.5rem;
       overflow: hidden;
     }
@@ -43,6 +55,8 @@ const Container = styled.div`
       padding: 0.125rem 0.5rem;
       border: none;
       outline: none;
+      background-color: inherit;
+      color: inherit;
     }
     .button {
       display: flex;
@@ -53,6 +67,7 @@ const Container = styled.div`
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       cursor: pointer;
+      color: inherit;
       :enabled:active {
         color: #64b5f6;
       }

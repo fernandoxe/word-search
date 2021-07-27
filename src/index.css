@@ -4,5 +4,12 @@
 
 body {
   margin: 0;
-  font-family: 'Nunito', sans-serif;;
+  font-family: 'Nunito', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000;
+    color: #fff;
+  }
 }

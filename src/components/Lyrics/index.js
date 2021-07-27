@@ -9,6 +9,9 @@ const Container = styled.div`
   :not(:last-child) {
     margin-bottom: 1rem;
   }
+  @media (prefers-color-scheme: dark) {
+    box-shadow: 2px 2px 5px 1px rgba(255, 255, 255, 0.2);
+  }
 `;
 
 const Lyrics = (props) => {
