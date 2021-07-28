@@ -86,7 +86,7 @@ const Search = (props) => {
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    const allArtists = SearchData.getAllArtists();
+    const allArtists = SearchData.getAllArtistsNames();
     setArtists(allArtists);
   }, []);
 
@@ -98,7 +98,8 @@ const Search = (props) => {
     e.preventDefault();
 
     const songs = SearchData.getLyrics(inputValue.trim());
-    console.log(songs);
+    const allLyrics = SearchData.getAllLyricsWithText(inputValue.trim());
+    console.log(allLyrics);
     setResult(songs);
   };
 
