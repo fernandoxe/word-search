@@ -112,7 +112,7 @@ const Search = (props) => {
         <div className="form">
           <div className="form__artists">
             <select name="select">
-              <option value="All" selected>All</option>
+              <option value="All">All</option>
               {artists.map((artist, i) =>
                 <option key={i} value={artist}>{artist}</option>
               )}
