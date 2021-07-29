@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SearchData from '../../services/searchdata';
-import Song from '../Song';
+import Artist from '../Artist';
 
 const Container = styled.div`
   padding: 1rem;
@@ -78,9 +78,26 @@ const Container = styled.div`
       }
     }
   }
+
+  > .list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > li {
+      max-width: 30rem;
+      :not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+  }
 `;
 
-const Search = (props) => {
+const Search = props => {
   const [inputValue, setInputValue] = useState('');
   const [result, setResult] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -97,14 +114,9 @@ const Search = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const songs = SearchData.getLyrics(inputValue.trim());
+    // const songs = SearchData.getLyrics(inputValue.trim());
     const allLyrics = SearchData.getAllLyricsWithText(inputValue.trim());
-    console.log(allLyrics);
-    setResult(songs);
-  };
-
-  const parseSongs = (songs) => {
-    return songs.map((song, i) => <Song key={i} song={song} /> );
+    setResult(allLyrics);
   };
 
   return (
@@ -132,7 +144,9 @@ const Search = (props) => {
           </div>
         </div>
       </form>
-      {parseSongs(result)}
+      <ul className="list">
+        {result.map((artist, i) => <li key={i}><Artist artist={artist} /></li>)}
+      </ul>
     </Container>
   );
 };
