@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 100%;
-  max-width: 30rem;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
-  :not(:last-child) {
-    margin-bottom: 1rem;
-  }
-  @media (prefers-color-scheme: dark) {
-    box-shadow: 2px 2px 5px 1px rgba(255, 255, 255, 0.2);
+  > .list {
+    list-style-type: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 2px 2px 5px 1px rgba(255, 255, 255, 0.2);
+    }
   }
 `;
 
-const Lyrics = (props) => {
+const Lyrics = props => {
   return (
     <Container>
-      {props.lines.map((line, k) =>line ? <div key={k}>{line}</div> : null)}
+      <ul className="list">
+        {props.lines.map((line, i) => line ? <li key={i}>{line}</li> : null)}
+      </ul>
     </Container>
   );
 }
