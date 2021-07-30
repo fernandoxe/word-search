@@ -79,21 +79,22 @@ const Container = styled.div`
     }
   }
 
-  > .list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    > li {
+  .search {
+    &__list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    &__item {
+      width: 100%;
       max-width: 30rem;
       :not(:last-child) {
         margin-bottom: 1rem;
       }
     }
-
   }
 `;
 
@@ -144,8 +145,8 @@ const Search = props => {
           </div>
         </div>
       </form>
-      <ul className="list">
-        {result.map((artist, i) => <li key={i}><Artist artist={artist} /></li>)}
+      <ul className="search__list">
+        {result.map((artist, i) => <li className="search__item" key={i}><Artist artist={artist} /></li>)}
       </ul>
     </Container>
   );
