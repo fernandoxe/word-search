@@ -102,6 +102,7 @@ const Search = props => {
   const [inputValue, setInputValue] = useState('');
   const [result, setResult] = useState([]);
   const [artists, setArtists] = useState([]);
+  const [selectValue, setSelectValue] = useState('All');
 
   useEffect(() => {
     const allArtists = SearchData.getAllArtistsNames();
@@ -115,9 +116,18 @@ const Search = props => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const songs = SearchData.getLyrics(inputValue.trim());
-    const allLyrics = SearchData.getAllLyricsWithText(inputValue.trim());
+    let allLyrics;
+    if (selectValue === 'All') {
+      allLyrics = SearchData.getAllLyricsWithText(inputValue.trim());
+    } else {
+      allLyrics = SearchData.getAllLyricsFromArtistNameWithText(inputValue, selectValue);
+    }
+    
     setResult(allLyrics);
+  };
+
+  const handleSelectChange = (e) => {
+    setSelectValue(e.target.value);
   };
 
   return (
@@ -125,7 +135,7 @@ const Search = props => {
       <form onSubmit={handleSubmit}>
         <div className="form">
           <div className="form__artists">
-            <select name="select">
+            <select name="select" onChange={handleSelectChange}>
               <option value="All">All</option>
               {artists.map((artist, i) =>
                 <option key={i} value={artist}>{artist}</option>
