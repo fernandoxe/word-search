@@ -147,6 +147,7 @@ const Search = props => {
               className="input"
               type="search"
               placeholder="Type a word"
+              autoCapitalize="none"
               onChange={handleInputChange}
             />
             <button className="button" disabled={inputValue.trim().length < 2}>
